@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+}
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#user {
+    width: 70px;
+    margin-right: 10px;
+}
+
+/* Hover Effects  */
+.fa-solid {
+    cursor: pointer;
+    color: #fff;
+    font-size: 20pt;
+}
+.fa-solid:hover {
+    color: #6fee7c;
+}
+button:hover {
+    color: #46984e;
+}
+
+
+/* main list container */
+.list-container {
+    width: 95%;
+}
+
+.search-container {
+    display: none;
+}
+/* Card Details */
+#date {
+    margin-top: 20px;
+    font-size: 2rem;
+    font-weight: 700;
+    background-color: #6FEE7C;
+    position: absolute;
+    padding: 25px 25px 25px 100px;
+    transform: translateX(-50%);
+    border-radius: 0px 20px 20px 0px;
+    display: none;
+
+}
+
+hr {
+    border: 0;
+    height: 2px;
+    background: #020202;
+   
+}
+h3 {
+    font-weight: 500;
+}
+.blue-shadow {
+    box-shadow: 0 4px 8px #2227894d;
+}
+
+/* Pie Chart */
+.chart-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+#expensesPieChart {
+    margin-bottom: 50px;
+    width: 400px;
+    height: 400px;
+}
+
+/* table colour */
+#expense-table {
+    display: none;
+}
+#purple {
+    color: #6f42c1;
+}
+#pink {
+    color: #c142b4;
+}
+#magenta {
+    color: #710e39;
+}
+
+/* footer */
+footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #10156E;
+    padding: 20px;
+}
+
+
+@media screen and (min-width: 768px) {
+    main {
+        width: 90%;
+        gap: 50px;
+        margin: 0 auto;
+        flex-direction: row-reverse;
+        align-items: flex-start;
+        justify-content: space-between;
+    }
+    #expensesPieChart {
+        width: 500px;
+    }
+    #expense-table {
+        display: block;
+    }
+    #date {
+        display: block;
+    }
+    .list-container {
+        width: 50%;
+    }
+    .income-container {
+        margin-top: 250px;
+        padding-top: 150px;
+    }
+    .search-container {
+        display: block;
+        margin-bottom: 50px;
+        padding-right: 0px;
+        width: 230px;
+        cursor: pointer;
+    }
+    footer {
+        display: none;
+    }
+
+}
