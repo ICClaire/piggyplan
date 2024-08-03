@@ -1,11 +1,10 @@
-//////////////////////// Pie Chart ////////////////////////
 document.addEventListener('DOMContentLoaded', (event) => {
+    // Initialize the pie chart
     const data = {
         labels: ['Housing', 'Transportation', 'Food', 'Lifestyle', 'Education', 'Insurance', 'Debt', 'Donations', 'Miscellaneous'],
         datasets: [{
             label: 'Expenses',
-            // need to change data based on user input
-            data: [1200, 300, 150, 100, 200],
+            data: [1200, 300, 150, 100, 200], // Placeholder data
             backgroundColor: [
                 'rgba(0, 0, 255, 0.2)',
                 'rgba(255, 0, 0, 0.2)',
@@ -32,23 +31,17 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }]
     };
 
-    // This is the configuration of the chart
     const config = {
         type: 'doughnut',
-        // This is the data defined above
         data: data,
         options: {
             responsive: true,
             plugins: {
                 legend: {
-                    // You can remove this
                     display: false,
                     position: 'top',
                 },
-                // This is the configuration for the tooltip
-                // It will display the value of the data
                 tooltip: {
-                    // this function will format the tooltip
                     callbacks: {
                         label: function(context) {
                             let label = context.label || '';
@@ -66,22 +59,68 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
     };
 
-    // This is the context of the canvas element
-    // This is where the chart will be drawn
     const ctx = document.getElementById('expensesPieChart').getContext('2d');
-    // This creates the chart
     new Chart(ctx, config);
 });
+document.addEventListener('DOMContentLoaded', function() {
+    // Load any saved data when the page is loaded
+    loadSavedData();
 
-
-//////////////////////// Date ////////////////////////
-document.addEventListener("DOMContentLoaded", function() {
-    const dateElement = document.getElementById('date');
-    const currentDate = new Date();
-    const formattedDate = currentDate.toLocaleDateString('en-US', {
-        year: 'numeric', 
-        month: 'long', 
+    // Handle form submission
+    document.querySelectorAll('form').forEach(form => {
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting and reloading the page
+            saveFormData(form);
+        });
     });
-    dateElement.textContent = formattedDate;
 });
 
+function loadSavedData() {
+    document.querySelectorAll('input').forEach(input => {
+        const savedValue = localStorage.getItem(input.id);
+        if (savedValue) {
+            // Replace the input field with the saved value
+            const valueDisplay = document.createElement('span');
+            valueDisplay.textContent = savedValue;
+            valueDisplay.classList.add('saved-value');
+
+            input.replaceWith(valueDisplay);
+        }
+    });
+}
+
+function saveFormData(form) {
+    const inputs = form.querySelectorAll('input');
+    inputs.forEach(input => {
+        const value = input.value;
+        if (value) {
+            localStorage.setItem(input.id, value);
+
+            // Replace the input field with the saved value
+            const valueDisplay = document.createElement('span');
+            valueDisplay.textContent = value;
+            valueDisplay.classList.add('saved-value');
+
+            input.replaceWith(valueDisplay);
+        }
+    });
+}
+
+function replaceWithInput(inputId, currentValue) {
+    // Create a new input element
+    const newInput = document.createElement('input');
+    newInput.type = 'text';
+    newInput.id = inputId;
+    newInput.value = currentValue;
+
+    // Add a listener to handle form submission again
+    newInput.addEventListener('change', function() {
+        localStorage.setItem(inputId, newInput.value);
+        loadSavedData(); // Refresh the display with the updated value
+    });
+
+    // Replace the saved value display with the new input field
+    const valueDisplay = document.getElementById(inputId).nextElementSibling.previousElementSibling;
+    valueDisplay.replaceWith(newInput);
+    newInput.focus();
+}

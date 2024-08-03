@@ -91,6 +91,21 @@ h3 {
 #magenta {
     color: #710e39;
 }
+.delete-container{
+    float: right;
+    padding-top: 10em;
+}
+#clearDataButton{
+    width: 10em;
+    height: 4em;
+    border-radius: 10px;
+    background-color: #6FEE7C;
+    border-color: #46984e;
+    box-shadow: 0 4px 8px #46984e;
+}
+
+
+
 
 /* footer */
 footer {
