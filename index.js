@@ -61,8 +61,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     const ctx = document.getElementById('expensesPieChart').getContext('2d');
     new Chart(ctx, config);
-});
-document.addEventListener('DOMContentLoaded', function() {
+
     // Load any saved data when the page is loaded
     loadSavedData();
 
@@ -72,6 +71,11 @@ document.addEventListener('DOMContentLoaded', function() {
             event.preventDefault(); // Prevent the form from submitting and reloading the page
             saveFormData(form);
         });
+    });
+
+    // Handle clear data button click
+    document.getElementById('clearDataButton').addEventListener('click', function() {
+        clearAllData();
     });
 });
 
@@ -123,4 +127,28 @@ function replaceWithInput(inputId, currentValue) {
     const valueDisplay = document.getElementById(inputId).nextElementSibling.previousElementSibling;
     valueDisplay.replaceWith(newInput);
     newInput.focus();
+}
+
+function clearAllData() {
+    // Remove all items from localStorage
+    localStorage.clear();
+
+    // Remove all displayed saved values
+    document.querySelectorAll('.saved-value').forEach(element => {
+        const inputId = element.textContent; // Get the text content to determine the input ID
+        if (inputId) {
+            const newInput = document.createElement('input');
+            newInput.type = 'text';
+            newInput.id = inputId;
+            newInput.value = '';
+            newInput.classList.add('form-control', 'border-0', 'm-2');
+            newInput.placeholder = 'Enter Amount';
+
+            // Replace the display element with the new input field
+            element.replaceWith(newInput);
+        }
+    });
+
+    // Reload the page to reset the chart and other elements
+    location.reload();
 }
