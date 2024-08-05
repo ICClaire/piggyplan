@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const dateElement = document.getElementById('date');
+    const currentDate = new Date().toLocaleDateString(undefined, { 
+        month: 'long'
+    });
+    dateElement.textContent = currentDate;
     // Initialize the pie chart (unchanged)
     const data = {
         labels: ['Savings', 'Housing', 'Food', 'Transportation', 'Lifestyle', 'Education', 'Insurance', 'Debt', 'Donations', 'Miscellaneous'],
