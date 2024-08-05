@@ -41,49 +41,54 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr data-form="savingsForm">
+                        <td class="text">Savings</td>
+                        <td class="planned"></td>
+                        <td></td>
+                    </tr>
+                    <tr data-form="housingForm">
                         <td class="text-primary">Housing</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td class="text-danger">Transportation</td>
-                        <td></td>
+                        <td class="planned"></td>
                         <td></td>
                     </tr>
-                    <tr>
+                    <tr data-form="foodForm">
                         <td class="text-success">Food</td>
-                        <td></td>
+                        <td class="planned"></td>
                         <td></td>
                     </tr>
-                    <tr>
+                    <tr data-form="transForm">
+                        <td class="text-danger">Transportation</td>
+                        <td class="planned"></td>
+                        <td></td>
+                    </tr>
+                    <tr data-form="lifeForm">
                         <td class="text-warning">Lifestyle</td>
-                        <td></td>
+                        <td class="planned"></td>
                         <td></td>
                     </tr>
-                    <tr>
+                    <tr data-form="eduForm">
                         <td id="purple">Education</td>
-                        <td></td>
+                        <td class="planned"></td>
                         <td></td>
                     </tr>
-                    <tr>
+                    <tr data-form="taxForm">
                         <td id="pink">Insurance</td>
-                        <td></td>
+                        <td class="planned"></td>
                         <td></td>
                     </tr>
-                    <tr>
+                    <tr data-form="debtForm">
                         <td class="text-info">Debt</td>
-                        <td></td>
+                        <td class="planned"></td>
                         <td></td>
                     </tr>
-                    <tr>
+                    <tr data-form="donationForm">
                         <td>Donations</td>
-                        <td></td>
+                        <td class="planned"></td>
                         <td></td>
                     </tr>
-                    <tr>
+                    <tr data-form="miscForm">
                         <td id="magenta">Miscellaneous</td>
-                        <td></td>
+                        <td class="planned"></td>
                         <td></td>
                     </tr>
                 </tbody>
@@ -109,12 +114,12 @@
                 </div>
                 <form action="your-server-endpoint" class="blue-shadow p-3 rounded" method="post">
                     <div class="form-group d-flex flex-direction-coloumn justify-content-around ">
-                        <input type="text" id="inputField" name="inputName" class="form-control border-0 m-2" placeholder="Ex. Payroll 1" required>
-                        <input type="number" id="inputField" name="inputName" class="form-control border-0 m-2"placeholder="Enter Amount" required>
+                        <input type="text" id="incomeInputField1" name="incomeInputName1" class="form-control border-0 m-2" placeholder="Ex. Payroll 1" required>
+                        <input type="number" id="incomeInputField2" name="incomeInputAmount1" class="form-control border-0 m-2"placeholder="Enter Amount" required>
                     </div>
                     <hr>
                     <div class="button-container d-flex justify-content-between">
-                        <button type="submit" class="border-0 bg-transparent">Edit</button>
+                        <button type="submit" class="border-0 bg-transparent edit-button">Edit</button>
                         <button type="submit" class="border-0 bg-transparent add-button">Add Item</button>
                     </div>
                 </form>
@@ -133,13 +138,13 @@
                     </div>
                     <form action="your-server-endpoint" class="blue-shadow p-3 rounded" method="post">
                         <div class="form-group d-flex flex-direction-coloumn justify-content-around ">
-                            <input type="text" id="inputField" name="inputName" class="form-control border-0 m-2" placeholder="Ex. Investment" required>
-                            <input type="number" id="inputField" name="inputName" class="form-control border-0 m-2" placeholder="Enter Amount" required>
+                            <input type="text" id="savingsInputField1" name="savingsInputName1" class="form-control border-0 m-2" placeholder="Ex. Investment" required>
+                            <input type="number" id="savingsInputField2" name="savingsInputAmount1" class="form-control border-0 m-2" placeholder="Enter Amount" required>
                         </div>
                         <hr>
                         <div class="button-container d-flex justify-content-between">
-                            <button type="submit" class="border-0 bg-transparent">Edit</button>
-                            <button type="submit" class="border-0 bg-transparent">Add Item</button>
+                            <button type="submit" class="border-0 bg-transparent edit-button">Edit</button>
+                            <button type="submit" class="border-0 bg-transparent add-button">Add Item</button>
                         </div>
                     </form>
                 </div>
@@ -151,13 +156,13 @@
                     </div>
                     <form action="your-server-endpoint" class="blue-shadow p-3 rounded" method="post">
                         <div class="form-group d-flex flex-direction-coloumn justify-content-around ">
-                            <input type="text" id="inputField" name="inputName" class="form-control border-0 m-2" placeholder="Ex. Rent" required>
-                            <input type="number" id="inputField" name="inputName" class="form-control border-0 m-2" placeholder="Enter Amount" required>
+                            <input type="text" id="hosuingInputField1" name="housingInputName1" class="form-control border-0 m-2" placeholder="Ex. Rent" required>
+                            <input type="number" id="housingInputField2" name="housingInputAmout1" class="form-control border-0 m-2" placeholder="Enter Amount" required>
                         </div>
                         <hr>
                         <div class="button-container d-flex justify-content-between">
-                            <button type="submit" class="border-0 bg-transparent">Edit</button>
-                            <button type="submit" class="border-0 bg-transparent">Add Item</button>
+                            <button type="submit" class="border-0 bg-transparent edit-button">Edit</button>
+                            <button type="submit" class="border-0 bg-transparent add-button">Add Item</button>
                         </div>
                     </form>
                 </div>
@@ -168,13 +173,13 @@
                     </div>
                     <form action="your-server-endpoint" class="blue-shadow p-3 rounded" method="post">
                         <div class="form-group d-flex flex-direction-coloumn justify-content-around ">
-                            <input type="text" id="inputField" name="inputName" class="form-control border-0 m-2" placeholder="Ex. Groceries"required>
-                            <input type="number" id="inputField" name="inputName" class="form-control border-0 m-2" placeholder="Enter Amount" required>
+                            <input type="text" id="foodInputField1" name="foodInputName1" class="form-control border-0 m-2" placeholder="Ex. Groceries"required>
+                            <input type="number" id="foodInputField2" name="foodInputAmount1" class="form-control border-0 m-2" placeholder="Enter Amount" required>
                         </div>
                         <hr>
                         <div class="button-container d-flex justify-content-between">
-                            <button type="submit" class="border-0 bg-transparent">Edit</button>
-                            <button type="submit" class="border-0 bg-transparent">Add Item</button>
+                            <button type="submit" class="border-0 bg-transparent edit-button">Edit</button>
+                            <button type="submit" class="border-0 bg-transparent add-button">Add Item</button>
                         </div>
                     </form>
                 </div>
@@ -185,13 +190,13 @@
                     </div>
                     <form action="your-server-endpoint" class="blue-shadow p-3 rounded" method="post">
                         <div class="form-group d-flex flex-direction-coloumn justify-content-around ">
-                            <input type="text" id="inputField" name="inputName" class="form-control border-0 m-2" placeholder="Ex. Pass" required>
-                            <input type="number" id="inputField" name="inputName" class="form-control border-0 m-2" placeholder="Enter Amount" required>
+                            <input type="text" id="transInputField1" name="transInputName1" class="form-control border-0 m-2" placeholder="Ex. Pass" required>
+                            <input type="number" id="transInputField2" name="transInputAmount1" class="form-control border-0 m-2" placeholder="Enter Amount" required>
                         </div>
                         <hr>
                         <div class="button-container d-flex justify-content-between">
-                            <button type="submit" class="border-0 bg-transparent">Edit</button>
-                            <button type="submit" class="border-0 bg-transparent">Add Item</button>
+                            <button type="submit" class="border-0 bg-transparent edit-button">Edit</button>
+                            <button type="submit" class="border-0 bg-transparent add-button">Add Item</button>
                         </div>
                     </form>
                 </div>
@@ -202,13 +207,13 @@
                     </div>
                     <form action="your-server-endpoint" class="blue-shadow p-3 rounded" method="post">
                         <div class="form-group d-flex flex-direction-coloumn justify-content-around ">
-                            <input type="text" id="inputField" name="inputName" class="form-control border-0 m-2" placeholder="Ex. Clothes" required>
-                            <input type="number" id="inputField" name="inputName" class="form-control border-0 m-2" placeholder="Enter Amount" required>
+                            <input type="text" id="lifeInputField1" name="lifeInputName1" class="form-control border-0 m-2" placeholder="Ex. Clothes" required>
+                            <input type="number" id="lifeInputField2" name="lifeInputAmount1" class="form-control border-0 m-2" placeholder="Enter Amount" required>
                         </div>
                         <hr>
                         <div class="button-container d-flex justify-content-between">
-                            <button type="submit" class="border-0 bg-transparent">Edit</button>
-                            <button type="submit" class="border-0 bg-transparent">Add Item</button>
+                            <button type="submit" class="border-0 bg-transparent edit-button">Edit</button>
+                            <button type="submit" class="border-0 bg-transparent add-button">Add Item</button>
                         </div>
                     </form>
                 </div>
@@ -219,13 +224,13 @@
                     </div>
                     <form action="your-server-endpoint" class="blue-shadow p-3 rounded" method="post">
                         <div class="form-group d-flex flex-direction-coloumn justify-content-around ">
-                            <input type="text" id="inputField" name="inputName" class="form-control border-0 m-2" placeholder="Ex. Education" required>
-                            <input type="number" id="inputField" name="inputName" class="form-control border-0 m-2" placeholder="Enter Amount" required>
+                            <input type="text" id="eduInputField1" name="eduInputName1" class="form-control border-0 m-2" placeholder="Ex. Education" required>
+                            <input type="number" id="eduInputField2" name="eduInputAmount1" class="form-control border-0 m-2" placeholder="Enter Amount" required>
                         </div>
                         <hr>
                         <div class="button-container d-flex justify-content-between">
-                            <button type="submit" class="border-0 bg-transparent">Edit</button>
-                            <button type="submit" class="border-0 bg-transparent">Add Item</button>
+                            <button type="submit" class="border-0 bg-transparent edit-button">Edit</button>
+                            <button type="submit" class="border-0 bg-transparent add-button">Add Item</button>
                         </div>
                     </form>
                 </div>
@@ -236,13 +241,13 @@
                     </div>
                     <form action="your-server-endpoint" class="blue-shadow p-3 rounded" method="post">
                         <div class="form-group d-flex flex-direction-coloumn justify-content-around ">
-                            <input type="text" id="inputField" name="inputName" class="form-control border-0 m-2" placeholder="Ex. Car" required>
-                            <input type="number" id="inputField" name="inputName" class="form-control border-0 m-2" placeholder="Enter Amount" required>
+                            <input type="text" id="taxInputField1" name="taxInputName1" class="form-control border-0 m-2" placeholder="Ex. Car" required>
+                            <input type="number" id="taxInputField2" name="taxInputAmount1" class="form-control border-0 m-2" placeholder="Enter Amount" required>
                         </div>
                         <hr>
                         <div class="button-container d-flex justify-content-between">
-                            <button type="submit" class="border-0 bg-transparent">Edit</button>
-                            <button type="submit" class="border-0 bg-transparent">Add Item</button>
+                            <button type="submit" class="border-0 bg-transparent edit-button">Edit</button>
+                            <button type="submit" class="border-0 bg-transparent add-button">Add Item</button>
                         </div>
                     </form>
                 </div>
@@ -253,13 +258,13 @@
                     </div>
                     <form action="your-server-endpoint" class="blue-shadow p-3 rounded" method="post">
                         <div class="form-group d-flex flex-direction-coloumn justify-content-around ">
-                            <input type="text" id="inputField" name="inputName" class="form-control border-0 m-2" placeholder="Ex. Credit" required>
-                            <input type="number" id="inputField" name="inputName" class="form-control border-0 m-2" placeholder="Enter Amount" required>
+                            <input type="text" id="debtInputField1" name="debtInputName1" class="form-control border-0 m-2" placeholder="Ex. Credit" required>
+                            <input type="number" id="debtInputField2" name="debtInputAmount1" class="form-control border-0 m-2" placeholder="Enter Amount" required>
                         </div>
                         <hr>
                         <div class="button-container d-flex justify-content-between">
-                            <button type="submit" class="border-0 bg-transparent">Edit</button>
-                            <button type="submit" class="border-0 bg-transparent">Add Item</button>
+                            <button type="submit" class="border-0 bg-transparent edit-button">Edit</button>
+                            <button type="submit" class="border-0 bg-transparent add-button">Add Item</button>
                         </div>
                     </form>
                 </div>
@@ -270,13 +275,13 @@
                     </div>
                     <form action="your-server-endpoint" class="blue-shadow p-3 rounded" method="post">
                         <div class="form-group d-flex flex-direction-coloumn justify-content-around ">
-                            <input type="text" id="inputField" name="inputName" class="form-control border-0 m-2" placeholder="Ex. Donations" required>
-                            <input type="number" id="inputField" name="inputName" class="form-control border-0 m-2" placeholder="Enter Amount" required>
+                            <input type="text" id="donationInputField1" name="donationInputName1" class="form-control border-0 m-2" placeholder="Ex. Donations" required>
+                            <input type="number" id="donationInputField2" name="donationInputAmount1" class="form-control border-0 m-2" placeholder="Enter Amount" required>
                         </div>
                         <hr>
                         <div class="button-container d-flex justify-content-between">
-                            <button type="submit" class="border-0 bg-transparent">Edit</button>
-                            <button type="submit" class="border-0 bg-transparent">Add Item</button>
+                            <button type="submit" class="border-0 bg-transparent edit-button">Edit</button>
+                            <button type="submit" class="border-0 bg-transparent add-button">Add Item</button>
                         </div>
                     </form>
                 </div>
@@ -287,13 +292,13 @@
                     </div>
                     <form action="your-server-endpoint" class="blue-shadow p-3 rounded" method="post">
                         <div class="form-group d-flex flex-direction-coloumn justify-content-around ">
-                            <input type="text" id="inputField" name="inputName" class="form-control border-0 m-2" placeholder="Ex. Gifts" required>
-                            <input type="number" id="inputField" name="inputName" class="form-control border-0 m-2" placeholder="Enter Amount" required>
+                            <input type="text" id="miscInputField1" name="miscInputName1" class="form-control border-0 m-2" placeholder="Ex. Gifts" required>
+                            <input type="number" id="miscInputField2" name="miscInputAmount1" class="form-control border-0 m-2" placeholder="Enter Amount" required>
                         </div>
                         <hr>
                         <div class="button-container d-flex justify-content-between">
-                            <button type="submit" class="border-0 bg-transparent">Edit</button>
-                            <button type="submit" class="border-0 bg-transparent">Add Item</button>
+                            <button type="submit" class="border-0 bg-transparent edit-button">Edit</button>
+                            <button type="submit" class="border-0 bg-transparent add-button">Add Item</button>
                         </div>
                     </form>
                 </div>

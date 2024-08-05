@@ -77,7 +77,11 @@ h3 {
     width: 400px;
     height: 400px;
 }
-
+.tableInput{
+    opacity: 0;
+    cursor: default;
+    width: 75px;
+}
 /* table colour */
 #expense-table {
     display: none;
@@ -104,8 +108,10 @@ h3 {
     box-shadow: 0 4px 8px #46984e;
 }
 
-
-
+input[readonly] {
+    background-color: #f0f0f0;
+    cursor: default;
+}
 
 /* footer */
 footer {

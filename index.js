@@ -1,5 +1,5 @@
-document.addEventListener('DOMContentLoaded', (event) => {
-    // Initialize the pie chart
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize the pie chart (unchanged)
     const data = {
         labels: ['Housing', 'Transportation', 'Food', 'Lifestyle', 'Education', 'Insurance', 'Debt', 'Donations', 'Miscellaneous'],
         datasets: [{
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                                 label += ': ';
                             }
                             if (context.parsed !== null) {
-                                label += context.parsed + 'CAD';
+                                label += context.parsed + ' CAD';
                             }
                             return label;
                         }
@@ -70,6 +70,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         form.addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent the form from submitting and reloading the page
             saveFormData(form);
+            toggleEditable(form); // Close the editing mode after saving
         });
     });
 
@@ -77,18 +78,23 @@ document.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById('clearDataButton').addEventListener('click', function() {
         clearAllData();
     });
+
+    // Handle edit button click
+    document.body.addEventListener('click', function(event) {
+        if (event.target.classList.contains('edit-button')) {
+            event.preventDefault(); // Prevent the form from submitting and reloading the page
+            const form = event.target.closest('form');
+            toggleEditable(form);
+        }
+    });
 });
 
 function loadSavedData() {
     document.querySelectorAll('input').forEach(input => {
         const savedValue = localStorage.getItem(input.id);
         if (savedValue) {
-            // Replace the input field with the saved value
-            const valueDisplay = document.createElement('span');
-            valueDisplay.textContent = savedValue;
-            valueDisplay.classList.add('saved-value');
-
-            input.replaceWith(valueDisplay);
+            input.value = savedValue;
+            updateTableCell(input);
         }
     });
 }
@@ -96,59 +102,50 @@ function loadSavedData() {
 function saveFormData(form) {
     const inputs = form.querySelectorAll('input');
     inputs.forEach(input => {
-        const value = input.value;
-        if (value) {
-            localStorage.setItem(input.id, value);
-
-            // Replace the input field with the saved value
-            const valueDisplay = document.createElement('span');
-            valueDisplay.textContent = value;
-            valueDisplay.classList.add('saved-value');
-
-            input.replaceWith(valueDisplay);
+        if (input.value) {
+            localStorage.setItem(input.id, input.value);
+            updateTableCell(input);
         }
     });
 }
 
-function replaceWithInput(inputId, currentValue) {
-    // Create a new input element
-    const newInput = document.createElement('input');
-    newInput.type = 'text';
-    newInput.id = inputId;
-    newInput.value = currentValue;
+function updateTableCell(input) {
+    const formId = input.id.replace('InputField2', 'Form'); // Adjust ID matching based on your naming convention
+    const row = document.querySelector(`tr[data-form="${formId}"]`);
+    if (row) {
+        const cell = row.querySelector('td.planned');
+        if (cell) {
+            cell.textContent = input.value;
+        }
+    }
+}
 
-    // Add a listener to handle form submission again
-    newInput.addEventListener('change', function() {
-        localStorage.setItem(inputId, newInput.value);
-        loadSavedData(); // Refresh the display with the updated value
+function toggleEditable(form) {
+    const inputs = form.querySelectorAll('input');
+    inputs.forEach(input => {
+        if (input.hasAttribute('readonly')) {
+            input.removeAttribute('readonly');
+            input.classList.remove('editable');
+        } else {
+            input.setAttribute('readonly', 'true');
+            input.classList.add('editable');
+        }
     });
-
-    // Replace the saved value display with the new input field
-    const valueDisplay = document.getElementById(inputId).nextElementSibling.previousElementSibling;
-    valueDisplay.replaceWith(newInput);
-    newInput.focus();
 }
 
 function clearAllData() {
-    // Remove all items from localStorage
     localStorage.clear();
 
-    // Remove all displayed saved values
-    document.querySelectorAll('.saved-value').forEach(element => {
-        const inputId = element.textContent; // Get the text content to determine the input ID
-        if (inputId) {
-            const newInput = document.createElement('input');
-            newInput.type = 'text';
-            newInput.id = inputId;
-            newInput.value = '';
-            newInput.classList.add('form-control', 'border-0', 'm-2');
-            newInput.placeholder = 'Enter Amount';
-
-            // Replace the display element with the new input field
-            element.replaceWith(newInput);
-        }
+    document.querySelectorAll('input').forEach(input => {
+        input.value = '';
+        input.removeAttribute('readonly');
+        input.classList.remove('editable');
     });
 
-    // Reload the page to reset the chart and other elements
+    // Clear the table cells
+    document.querySelectorAll('table td.planned').forEach(cell => {
+        cell.textContent = '';
+    });
+
     location.reload();
 }
