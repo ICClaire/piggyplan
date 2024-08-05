@@ -1,33 +1,33 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize the pie chart (unchanged)
     const data = {
-        labels: ['Housing', 'Transportation', 'Food', 'Lifestyle', 'Education', 'Insurance', 'Debt', 'Donations', 'Miscellaneous'],
+        labels: ['Savings', 'Housing', 'Food', 'Transportation', 'Lifestyle', 'Education', 'Insurance', 'Debt', 'Donations', 'Miscellaneous'],
         datasets: [{
             label: 'Expenses',
-            data: [1200, 300, 150, 100, 200], // Placeholder data
+            data: [0, 0, 0, 0, 0, 0, 0, 0, 0], // Placeholder data
             backgroundColor: [
-                'rgba(0, 0, 255, 0.2)',
-                'rgba(255, 0, 0, 0.2)',
-                'rgba(0, 255, 0, 0.2)',
-                'rgba(255, 255, 0, 0.2)',
-                'rgba(128, 0, 128, 0.2)',
-                'rgba(255, 192, 203, 0.2)',
-                'rgba(135, 206, 235, 0.2)',
-                'rgba(0, 0, 0, 0.2)',
-                'rgba(255, 0, 255, 0.2)'
+                'rgba(136, 14, 114, 0.5)',
+                'rgba(13, 158, 255, 0.5)',
+                'rgba(25, 135, 84, 0.5)',
+                'rgba(220, 53, 69, 0.5)',
+                'rgba(225, 205, 7, 0.5)',
+                'rgba(111, 66, 205, 0.5)',
+                'rgba(193, 66, 180, 0.5)',
+                'rgba(13, 206, 244, 0.5)',
+                'rgba(0, 0, 0, 0.5)'
             ],
             borderColor: [
-                'rgba(0, 0, 255, 1)',
-                'rgba(255, 0, 0, 1)',
-                'rgba(0, 255, 0, 1)',
-                'rgba(255, 255, 0, 1)',
-                'rgba(128, 0, 128, 1)',
-                'rgba(255, 192, 203, 1)',
-                'rgba(135, 206, 235, 1)',
-                'rgba(0, 0, 0, 1)',
-                'rgba(255, 0, 255, 1)'
+                'rgba(136, 14, 114, 1)',
+                'rgba(13, 158, 255, 1)',
+                'rgba(25, 135, 84, 1)',
+                'rgba(220, 53, 69, 1)',
+                'rgba(225, 205, 7, 1)',
+                'rgba(111, 66, 205, 1)',
+                'rgba(193, 66, 180, 1)',
+                'rgba(13, 206, 244, 1)',
+                'rgba(0, 0, 0, 1)'
             ],
-            borderWidth: 1
+            borderWidth: 1.5
         }]
     };
 
@@ -60,9 +60,8 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const ctx = document.getElementById('expensesPieChart').getContext('2d');
-    new Chart(ctx, config);
+    const chart = new Chart(ctx, config);
 
-    // Load any saved data when the page is loaded
     loadSavedData();
 
     // Handle form submission
@@ -82,70 +81,88 @@ document.addEventListener('DOMContentLoaded', () => {
     // Handle edit button click
     document.body.addEventListener('click', function(event) {
         if (event.target.classList.contains('edit-button')) {
-            event.preventDefault(); // Prevent the form from submitting and reloading the page
+            event.preventDefault();
             const form = event.target.closest('form');
             toggleEditable(form);
         }
     });
-});
 
-function loadSavedData() {
-    document.querySelectorAll('input').forEach(input => {
-        const savedValue = localStorage.getItem(input.id);
-        if (savedValue) {
-            input.value = savedValue;
-            updateTableCell(input);
-        }
-    });
-}
+    function loadSavedData() {
+        document.querySelectorAll('input').forEach(input => {
+            const savedValue = localStorage.getItem(input.id);
+            if (savedValue) {
+                input.value = savedValue;
+                updateTableCell(input);
+            }
+        });
+        updateChart();
+    }
 
-function saveFormData(form) {
-    const inputs = form.querySelectorAll('input');
-    inputs.forEach(input => {
-        if (input.value) {
-            localStorage.setItem(input.id, input.value);
-            updateTableCell(input);
-        }
-    });
-}
+    function saveFormData(form) {
+        const inputs = form.querySelectorAll('input');
+        inputs.forEach(input => {
+            if (input.value) {
+                localStorage.setItem(input.id, input.value);
+                updateTableCell(input);
+            }
+        });
+        updateChart(); // Chart updates once data is saved
+    }
 
-function updateTableCell(input) {
-    const formId = input.id.replace('InputField2', 'Form'); // Adjust ID matching based on your naming convention
-    const row = document.querySelector(`tr[data-form="${formId}"]`);
-    if (row) {
-        const cell = row.querySelector('td.planned');
-        if (cell) {
-            cell.textContent = input.value;
+    //udating table input when data saved
+    function updateTableCell(input) {
+        const formId = input.id.replace('InputField2', 'Form');
+        const row = document.querySelector(`tr[data-form="${formId}"]`);
+        if (row) {
+            const cell = row.querySelector('td.planned');
+            if (cell) {
+                cell.textContent = input.value;
+            }
         }
     }
-}
 
-function toggleEditable(form) {
-    const inputs = form.querySelectorAll('input');
-    inputs.forEach(input => {
-        if (input.hasAttribute('readonly')) {
+    function updateChart() {
+        const categories = ['Savings', 'Housing', 'Transportation', 'Food', 'Lifestyle', 'Education', 'Insurance', 'Debt', 'Donations', 'Miscellaneous'];
+        const chartData = categories.map(category => {
+            const row = document.querySelector(`tr[data-form="${category.toLowerCase()}Form"]`);
+            const plannedCell = row ? row.querySelector('td.planned') : null;
+            return plannedCell ? parseFloat(plannedCell.textContent) || 0 : 0;
+        });
+
+        chart.data.datasets[0].data = chartData;
+        chart.update();
+    }
+
+    function toggleEditable(form) {
+        const inputs = form.querySelectorAll('input');
+        inputs.forEach(input => {
+            if (input.hasAttribute('readonly')) {
+                input.removeAttribute('readonly');
+                input.classList.remove('editable');
+            } else {
+                input.setAttribute('readonly', 'true');
+                input.classList.add('editable');
+            }
+        });
+    }
+
+    function clearAllData() {
+        localStorage.clear();
+
+        document.querySelectorAll('input').forEach(input => {
+            input.value = '';
             input.removeAttribute('readonly');
             input.classList.remove('editable');
-        } else {
-            input.setAttribute('readonly', 'true');
-            input.classList.add('editable');
-        }
-    });
-}
+        });
 
-function clearAllData() {
-    localStorage.clear();
+        // Clear the table cells
+        document.querySelectorAll('table td.planned').forEach(cell => {
+            cell.textContent = '';
+        });
 
-    document.querySelectorAll('input').forEach(input => {
-        input.value = '';
-        input.removeAttribute('readonly');
-        input.classList.remove('editable');
-    });
+        // Clear the chart
+        updateChart();
 
-    // Clear the table cells
-    document.querySelectorAll('table td.planned').forEach(cell => {
-        cell.textContent = '';
-    });
-
-    location.reload();
-}
+        location.reload();
+    }
+});

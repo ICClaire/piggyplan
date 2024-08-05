@@ -41,11 +41,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr data-form="savingsForm">
-                        <td class="text">Savings</td>
-                        <td class="planned"></td>
-                        <td></td>
-                    </tr>
                     <tr data-form="housingForm">
                         <td class="text-primary">Housing</td>
                         <td class="planned"></td>
@@ -56,22 +51,22 @@
                         <td class="planned"></td>
                         <td></td>
                     </tr>
-                    <tr data-form="transForm">
+                    <tr data-form="transportationForm">
                         <td class="text-danger">Transportation</td>
                         <td class="planned"></td>
                         <td></td>
                     </tr>
-                    <tr data-form="lifeForm">
+                    <tr data-form="lifestyleForm">
                         <td class="text-warning">Lifestyle</td>
                         <td class="planned"></td>
                         <td></td>
                     </tr>
-                    <tr data-form="eduForm">
+                    <tr data-form="educationForm">
                         <td id="purple">Education</td>
                         <td class="planned"></td>
                         <td></td>
                     </tr>
-                    <tr data-form="taxForm">
+                    <tr data-form="insuranceForm">
                         <td id="pink">Insurance</td>
                         <td class="planned"></td>
                         <td></td>
@@ -81,12 +76,12 @@
                         <td class="planned"></td>
                         <td></td>
                     </tr>
-                    <tr data-form="donationForm">
+                    <tr data-form="donationsForm">
                         <td>Donations</td>
                         <td class="planned"></td>
                         <td></td>
                     </tr>
-                    <tr data-form="miscForm">
+                    <tr data-form="miscellaneousForm">
                         <td id="magenta">Miscellaneous</td>
                         <td class="planned"></td>
                         <td></td>
@@ -190,8 +185,8 @@
                     </div>
                     <form action="your-server-endpoint" class="blue-shadow p-3 rounded" method="post">
                         <div class="form-group d-flex flex-direction-coloumn justify-content-around ">
-                            <input type="text" id="transInputField1" name="transInputName1" class="form-control border-0 m-2" placeholder="Ex. Pass" required>
-                            <input type="number" id="transInputField2" name="transInputAmount1" class="form-control border-0 m-2" placeholder="Enter Amount" required>
+                            <input type="text" id="transportationInputField1" name="transportationInputName1" class="form-control border-0 m-2" placeholder="Ex. Pass" required>
+                            <input type="number" id="transportationInputField2" name="transportationInputAmount1" class="form-control border-0 m-2" placeholder="Enter Amount" required>
                         </div>
                         <hr>
                         <div class="button-container d-flex justify-content-between">
@@ -207,8 +202,8 @@
                     </div>
                     <form action="your-server-endpoint" class="blue-shadow p-3 rounded" method="post">
                         <div class="form-group d-flex flex-direction-coloumn justify-content-around ">
-                            <input type="text" id="lifeInputField1" name="lifeInputName1" class="form-control border-0 m-2" placeholder="Ex. Clothes" required>
-                            <input type="number" id="lifeInputField2" name="lifeInputAmount1" class="form-control border-0 m-2" placeholder="Enter Amount" required>
+                            <input type="text" id="lifestyleInputField1" name="lifestyleInputName1" class="form-control border-0 m-2" placeholder="Ex. Clothes" required>
+                            <input type="number" id="lifestyleInputField2" name="lifestyleInputAmount1" class="form-control border-0 m-2" placeholder="Enter Amount" required>
                         </div>
                         <hr>
                         <div class="button-container d-flex justify-content-between">
@@ -224,8 +219,8 @@
                     </div>
                     <form action="your-server-endpoint" class="blue-shadow p-3 rounded" method="post">
                         <div class="form-group d-flex flex-direction-coloumn justify-content-around ">
-                            <input type="text" id="eduInputField1" name="eduInputName1" class="form-control border-0 m-2" placeholder="Ex. Education" required>
-                            <input type="number" id="eduInputField2" name="eduInputAmount1" class="form-control border-0 m-2" placeholder="Enter Amount" required>
+                            <input type="text" id="educationInputField1" name="educationInputName1" class="form-control border-0 m-2" placeholder="Ex. Education" required>
+                            <input type="number" id="educationInputField2" name="educationInputAmount1" class="form-control border-0 m-2" placeholder="Enter Amount" required>
                         </div>
                         <hr>
                         <div class="button-container d-flex justify-content-between">
@@ -241,8 +236,8 @@
                     </div>
                     <form action="your-server-endpoint" class="blue-shadow p-3 rounded" method="post">
                         <div class="form-group d-flex flex-direction-coloumn justify-content-around ">
-                            <input type="text" id="taxInputField1" name="taxInputName1" class="form-control border-0 m-2" placeholder="Ex. Car" required>
-                            <input type="number" id="taxInputField2" name="taxInputAmount1" class="form-control border-0 m-2" placeholder="Enter Amount" required>
+                            <input type="text" id="insuranceInputField1" name="insuranceInputName1" class="form-control border-0 m-2" placeholder="Ex. Car" required>
+                            <input type="number" id="insuranceInputField2" name="insuranceInputAmount1" class="form-control border-0 m-2" placeholder="Enter Amount" required>
                         </div>
                         <hr>
                         <div class="button-container d-flex justify-content-between">
@@ -275,8 +270,8 @@
                     </div>
                     <form action="your-server-endpoint" class="blue-shadow p-3 rounded" method="post">
                         <div class="form-group d-flex flex-direction-coloumn justify-content-around ">
-                            <input type="text" id="donationInputField1" name="donationInputName1" class="form-control border-0 m-2" placeholder="Ex. Donations" required>
-                            <input type="number" id="donationInputField2" name="donationInputAmount1" class="form-control border-0 m-2" placeholder="Enter Amount" required>
+                            <input type="text" id="donationsInputField1" name="donationsInputName1" class="form-control border-0 m-2" placeholder="Ex. Donations" required>
+                            <input type="number" id="donationsInputField2" name="donationsInputAmount1" class="form-control border-0 m-2" placeholder="Enter Amount" required>
                         </div>
                         <hr>
                         <div class="button-container d-flex justify-content-between">
@@ -292,8 +287,8 @@
                     </div>
                     <form action="your-server-endpoint" class="blue-shadow p-3 rounded" method="post">
                         <div class="form-group d-flex flex-direction-coloumn justify-content-around ">
-                            <input type="text" id="miscInputField1" name="miscInputName1" class="form-control border-0 m-2" placeholder="Ex. Gifts" required>
-                            <input type="number" id="miscInputField2" name="miscInputAmount1" class="form-control border-0 m-2" placeholder="Enter Amount" required>
+                            <input type="text" id="miscellaneousInputField1" name="miscellaneousInputName1" class="form-control border-0 m-2" placeholder="Ex. Gifts" required>
+                            <input type="number" id="miscellaneousInputField2" name="miscellaneousInputAmount1" class="form-control border-0 m-2" placeholder="Enter Amount" required>
                         </div>
                         <hr>
                         <div class="button-container d-flex justify-content-between">
