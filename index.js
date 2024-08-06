@@ -94,6 +94,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Handle delete button click
+    document.body.addEventListener('click', function(event) {
+        if (event.target.classList.contains('delete-button')) {
+            const inputRow = event.target.closest('.input-row');
+            const form = inputRow.closest('form');
+            inputRow.remove(); // Remove the input row
+            updateTableCell(form); // Update the table cell for this form section
+            updateChart(); // Update the chart to reflect changes
+        }
+    });
+
     function loadSavedData() {
         document.querySelectorAll('input').forEach(input => {
             const savedValue = localStorage.getItem(input.id);
@@ -137,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (row) {
             const cell = row.querySelector('td.planned');
             if (cell) {
-                cell.textContent = sum.toFixed(2); // Display the sum in the table
+                cell.textContent = Math.round(sum); // Display the sum as a whole number in the table
             }
         }
     }
@@ -171,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function addNewInputField(form) {
         const formGroup = document.createElement('div');
-        formGroup.classList.add('form-group', 'd-flex', 'flex-direction-column', 'justify-content-around');
+        formGroup.classList.add('form-group', 'd-flex', 'flex-direction-column', 'justify-content-around', 'input-row');
 
         const newInputName = document.createElement('input');
         newInputName.type = 'text';
@@ -191,8 +202,14 @@ document.addEventListener('DOMContentLoaded', () => {
         newInputName.classList.remove('editable');
         newInputAmount.classList.remove('editable');
 
+        const deleteButton = document.createElement('button');
+        deleteButton.type = 'button';
+        deleteButton.className = 'border-0 bg-transparent delete-button';
+        deleteButton.innerHTML = '<i class="fa fa-times" aria-hidden="true"></i>';
+
         formGroup.appendChild(newInputName);
         formGroup.appendChild(newInputAmount);
+        formGroup.appendChild(deleteButton);
 
         form.insertBefore(formGroup, form.querySelector('.button-container'));
     }
