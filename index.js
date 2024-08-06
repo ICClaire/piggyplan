@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Handle form submission
     document.querySelectorAll('form').forEach(form => {
         form.addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent the form from submitting and reloading the page
+            event.preventDefault();
             saveFormData(form);
             toggleEditable(form); // Close the editing mode after saving
         });
