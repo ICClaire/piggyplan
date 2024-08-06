@@ -1,9 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
     const dateElement = document.getElementById('date');
-    const currentDate = new Date().toLocaleDateString(undefined, { 
+    const currentDate = new Date().toLocaleDateString(undefined, {
         month: 'long'
     });
     dateElement.textContent = currentDate;
+
     // Initialize the pie chart (unchanged)
     const data = {
         labels: ['Savings', 'Housing', 'Food', 'Transportation', 'Lifestyle', 'Education', 'Insurance', 'Debt', 'Donations', 'Miscellaneous'],
@@ -74,7 +75,8 @@ document.addEventListener('DOMContentLoaded', () => {
         form.addEventListener('submit', function(event) {
             event.preventDefault();
             saveFormData(form);
-            toggleEditable(form); // Close the editing mode after saving
+            addNewInputField(form); // Add a new input field after saving
+            toggleEditable(form, false); // Make saved inputs uneditable
         });
     });
 
@@ -88,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (event.target.classList.contains('edit-button')) {
             event.preventDefault();
             const form = event.target.closest('form');
-            toggleEditable(form);
+            toggleEditable(form, true); // Make all inputs editable again
         }
     });
 
@@ -97,10 +99,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const savedValue = localStorage.getItem(input.id);
             if (savedValue) {
                 input.value = savedValue;
-                updateTableCell(input);
             }
         });
-        updateChart();
+        updateAllTableCells(); // Update all table cells after loading data
+        updateChart(); // Update the chart with loaded data
     }
 
     function saveFormData(form) {
@@ -108,20 +110,34 @@ document.addEventListener('DOMContentLoaded', () => {
         inputs.forEach(input => {
             if (input.value) {
                 localStorage.setItem(input.id, input.value);
-                updateTableCell(input);
+                input.setAttribute('readonly', 'true'); // Make saved inputs uneditable
+                input.classList.add('editable'); // Add a class to indicate it’s not editable
             }
         });
+        updateTableCell(form); // Update the table cell for this form section
         updateChart(); // Chart updates once data is saved
     }
 
-    //udating table input when data saved
-    function updateTableCell(input) {
-        const formId = input.id.replace('InputField2', 'Form');
+    function updateAllTableCells() {
+        document.querySelectorAll('form').forEach(form => {
+            updateTableCell(form);
+        });
+    }
+
+    function updateTableCell(form) {
+        const inputs = form.querySelectorAll('input[type="number"]');
+        let sum = 0;
+
+        inputs.forEach(input => {
+            sum += parseFloat(input.value) || 0;
+        });
+
+        const formId = form.querySelector('input[type="number"]').id.replace('InputField2', 'Form');
         const row = document.querySelector(`tr[data-form="${formId}"]`);
         if (row) {
             const cell = row.querySelector('td.planned');
             if (cell) {
-                cell.textContent = input.value;
+                cell.textContent = sum.toFixed(2); // Display the sum in the table
             }
         }
     }
@@ -138,17 +154,47 @@ document.addEventListener('DOMContentLoaded', () => {
         chart.update();
     }
 
-    function toggleEditable(form) {
+    function toggleEditable(form, editable) {
         const inputs = form.querySelectorAll('input');
         inputs.forEach(input => {
-            if (input.hasAttribute('readonly')) {
+            if (editable) {
                 input.removeAttribute('readonly');
                 input.classList.remove('editable');
             } else {
-                input.setAttribute('readonly', 'true');
-                input.classList.add('editable');
+                if (input.value) { // Only make inputs uneditable if they have a value
+                    input.setAttribute('readonly', 'true');
+                    input.classList.add('editable');
+                }
             }
         });
+    }
+
+    function addNewInputField(form) {
+        const formGroup = document.createElement('div');
+        formGroup.classList.add('form-group', 'd-flex', 'flex-direction-column', 'justify-content-around');
+
+        const newInputName = document.createElement('input');
+        newInputName.type = 'text';
+        newInputName.className = 'form-control border-0 m-2';
+        newInputName.placeholder = 'Enter new item';
+        newInputName.required = true;
+
+        const newInputAmount = document.createElement('input');
+        newInputAmount.type = 'number';
+        newInputAmount.className = 'form-control border-0 m-2';
+        newInputAmount.placeholder = 'Enter amount';
+        newInputAmount.required = true;
+
+        // New inputs are initially editable
+        newInputName.removeAttribute('readonly');
+        newInputAmount.removeAttribute('readonly');
+        newInputName.classList.remove('editable');
+        newInputAmount.classList.remove('editable');
+
+        formGroup.appendChild(newInputName);
+        formGroup.appendChild(newInputAmount);
+
+        form.insertBefore(formGroup, form.querySelector('.button-container'));
     }
 
     function clearAllData() {
@@ -156,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.querySelectorAll('input').forEach(input => {
             input.value = '';
-            input.removeAttribute('readonly');
+            input.removeAttribute('readonly'); // Make sure inputs are editable after clearing data
             input.classList.remove('editable');
         });
 
