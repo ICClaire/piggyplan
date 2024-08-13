@@ -94,6 +94,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    document.body.addEventListener('click', function(event) {
+        if (event.target.classList.contains('save-edit-button')) {
+            event.preventDefault();
+            const form = event.target.closest('form');
+            saveFormData(form);  // Save the edited data
+            toggleEditable(form, false);  // Revert to non-editable mode
+        }
+    });
+
     // Handle delete button click
     document.body.addEventListener('click', function(event) {
         if (event.target.classList.contains('delete-button')) {
@@ -167,15 +176,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function toggleEditable(form, editable) {
         const inputs = form.querySelectorAll('input');
+        const saveEditButton = form.querySelector('.save-edit-button');
+        
         inputs.forEach(input => {
             if (editable) {
                 input.removeAttribute('readonly');
                 input.classList.remove('editable');
+                saveEditButton.style.display = 'inline-block'; // Show the Save Edit button
             } else {
                 if (input.value) { // Only make inputs uneditable if they have a value
                     input.setAttribute('readonly', 'true');
                     input.classList.add('editable');
                 }
+                saveEditButton.style.display = 'none'; // Hide the Save Edit button
             }
         });
     }
