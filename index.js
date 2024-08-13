@@ -246,4 +246,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
         location.reload();
     }
+
+    // Search Date Function
+    function handleDateChange() {
+        const dateInput = document.getElementById('search').value;
+        const outputDiv = document.getElementById('date');
+    
+        if (dateInput) {
+            outputDiv.innerHTML = `${dateInput}`;
+        } else {
+            outputDiv.innerHTML = currentDate;
+        }
+    }
+
+    // Add event listener to the date input
+    document.getElementById('search').addEventListener('change', handleDateChange);
 });
